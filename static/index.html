@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ ChatBot</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Top Navigation Bar with Topics -->
+        <div class="topics-navbar">
+            <div class="navbar-content">
+                <span class="navbar-label">📚 Topics:C,Java,Python,ML and DL.</span>
+                <div class="navbar-topics" id="navbarTopics">
+                    <!-- Topics will be loaded here by JavaScript -->
+                    <span class="loading-topics">Loading topics...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1>FAQ ChatBot</h1>
+                <p>Ask your questions and get instant answers</p>
+            </div>
+        </div>
+
+        <!-- Topics Section -->
+        <div class="topics-section">
+            <div class="topics-header">
+                <h3>📚 Available Topics</h3>
+                <p>Click to filter or scroll to see all topics</p>
+            </div>
+            <div class="topics-container" id="topicsContainer">
+                <!-- Topics will be loaded here by JavaScript -->
+                <p class="loading">Loading topics...</p>
+            </div>
+        </div>
+
+        <!-- Main Chat Section -->
+        <div class="chat-section">
+            <!-- Chat Messages Display -->
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        <p>Hello! 👋 I'm your FAQ assistant. Ask me anything, and I'll try to help by finding relevant information from our FAQ database.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-section">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="userInput" 
+                        placeholder="Type your question here..." 
+                        class="input-field"
+                        autocomplete="off"
+                    >
+                    <button id="sendBtn" class="send-button">Send</button>
+                </div>
+                <p class="hint-text">Press Enter or click Send to submit your question</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Powered by TF-IDF Similarity Matching | Similarity Threshold: 0.3</p>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
