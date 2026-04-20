@@ -10,25 +10,38 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
 # Download required NLTK data (runs once on first import)
+# Handle gracefully if downloads fail (important for Vercel)
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
-    nltk.download('punkt')
+    try:
+        nltk.download('punkt', quiet=True)
+    except:
+        pass
 
 try:
     nltk.data.find('corpora/stopwords')
 except LookupError:
-    nltk.download('stopwords')
+    try:
+        nltk.download('stopwords', quiet=True)
+    except:
+        pass
 
 try:
     nltk.data.find('corpora/wordnet')
 except LookupError:
-    nltk.download('wordnet')
+    try:
+        nltk.download('wordnet', quiet=True)
+    except:
+        pass
 
 try:
     nltk.data.find('corpora/wordnet_ic')
 except LookupError:
-    nltk.download('wordnet_ic')
+    try:
+        nltk.download('wordnet_ic', quiet=True)
+    except:
+        pass
 
 
 class TextPreprocessor:
@@ -42,13 +55,21 @@ class TextPreprocessor:
     
     def __init__(self):
         self.lemmatizer = WordNetLemmatizer()
-        self.stop_words = set(stopwords.words('english'))
-        # Remove common stop_words that are important for understanding
-        self.stop_words.discard('what')
-        self.stop_words.discard('is')
-        self.stop_words.discard('are')
-        self.stop_words.discard('can')
-        self.stop_words.discard('how')
+        try:
+            self.stop_words = set(stopwords.words('english'))
+            # Remove common stop_words that are important for understanding
+            self.stop_words.discard('what')
+            self.stop_words.discard('is')
+            self.stop_words.discard('are')
+            self.stop_words.discard('can')
+            self.stop_words.discard('how')
+        except:
+            # Fallback stopwords if NLTK data unavailable (important for Vercel)
+            self.stop_words = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
+                              'of', 'with', 'by', 'from', 'be', 'been', 'being', 'have', 'has', 'had',
+                              'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might',
+                              'must', 'this', 'that', 'these', 'those', 'i', 'you', 'he', 'she', 'it',
+                              'we', 'they'}
     
     def clean_text(self, text):
         """
@@ -82,8 +103,12 @@ class TextPreprocessor:
         Returns:
             list: List of tokens
         """
-        tokens = word_tokenize(text)
-        return tokens
+        try:
+            tokens = word_tokenize(text)
+            return tokens
+        except:
+            # Fallback to simple split if word_tokenize fails
+            return text.split()
     
     def remove_stopwords(self, tokens):
         """
@@ -108,8 +133,12 @@ class TextPreprocessor:
         Returns:
             list: Lemmatized tokens
         """
-        lemmatized_tokens = [self.lemmatizer.lemmatize(token) for token in tokens]
-        return lemmatized_tokens
+        try:
+            lemmatized_tokens = [self.lemmatizer.lemmatize(token) for token in tokens]
+            return lemmatized_tokens
+        except:
+            # If lemmatization fails, return tokens as-is
+            return tokens
     
     def preprocess(self, text):
         """
