@@ -290,7 +290,7 @@ if __name__ == '__main__':
         
         # Start Flask development server
         print(f"\nStarting FAQ Chatbot on http://localhost:5000")
-        print(f"Similarity threshold: {SIMILARITY_THRESHOLD}")
+        print(f"Similarity threshold: {SIMILARITY_THRESHOLD_OVERRIDE}")
         print(f"Press CTRL+C to stop\n")
         
         app.run(
@@ -298,4 +298,11 @@ if __name__ == '__main__':
             host='0.0.0.0',
             port=5000,
             use_reloader=True
+        )
+else:
+    # For production (Vercel, gunicorn, etc)
+    if not os.path.exists(FAQ_FILE):
+        print(f"Error: {FAQ_FILE} not found!")
+    else:
+        initialize_app()
         )
