@@ -305,4 +305,3 @@ else:
         print(f"Error: {FAQ_FILE} not found!")
     else:
         initialize_app()
-        )
