@@ -165,105 +165,6 @@ Press `CTRL+C` in the terminal
 - "What is machine learning?"
 - "How does a CNN work?"
 
-### API Endpoints
-
-#### Query Endpoint
-
-**POST** `/api/query`
-
-Send a user query and get a FAQ answer (optionally enhanced with Google API):
-
-**Request:**
-```json
-{
-  "query": "What is deep learning?"
-}
-```
-
-**Response (Success with Enhanced Answer):**
-```json
-{
-  "success": true,
-  "question": "What is the difference between deep learning and machine learning?",
-  "answer": "Machine Learning is a broad field... Deep Learning is a specialized subset...\n📚 **Additional Information:** [Enhanced info from Google Knowledge Graph]",
-  "confidence": 0.856,
-  "faq_id": 5,
-  "enhanced": true
-}
-```
-
-**Response (Success without Enhancement):**
-```json
-{
-  "success": true,
-  "question": "What is deep learning?",
-  "answer": "Original FAQ answer...",
-  "confidence": 0.92,
-  "faq_id": 5,
-  "enhanced": false
-}
-```
-
-**Response (Low Confidence):**
-```json
-{
-  "success": false,
-  "message": "I'm not confident about the answer. Please rephrase your question.",
-  "confidence": 0.18,
-  "enhanced": false
-}
-```
-
-#### Get All FAQs
-
-**GET** `/api/faqs`
-
-Retrieve all FAQs in the database:
-
-**Response:**
-```json
-{
-  "total": 25,
-  "faqs": [
-    {
-      "id": 1,
-      "question": "What is the difference between AI and Machine Learning?",
-      "answer": "..."
-    },
-    ...
-  ]
-}
-```
-
-#### Health Check
-
-**GET** `/api/health`
-
-Check server status and FAQ count:
-
-**Response:**
-```json
-{
-  "status": "ok",
-  "total_faqs": 25,
-  "api_available": true
-}
-```
-
-#### Configuration Check (Debug Mode Only)
-
-**GET** `/api/config/check`
-
-Check if API is properly configured (only in debug/development mode):
-
-**Response:**
-```json
-{
-  "api_configured": true,
-  "has_api_key": true,
-  "similarity_threshold": 0.2
-}
-```
 
 ## How It Works
 
@@ -323,27 +224,6 @@ SIMILARITY_THRESHOLD = 0.2  # Range: 0.0 to 1.0
 - **Lower threshold** (0.1): More responses but less accurate
 - **Higher threshold** (0.5): Fewer responses but more confident
 - **Default** (0.2): Balanced approach
-
-### FAQ Dataset
-
-Edit `faq_dataset.json` to add/modify FAQs:
-
-```json
-{
-  "faqs": [
-    {
-      "id": 1,
-      "question": "Your question?",
-      "answer": "Your detailed answer here."
-    },
-    {
-      "id": 2,
-      "question": "Another question?",
-      "answer": "Another answer."
-    }
-  ]
-}
-```
 
 ## Code Modules
 
@@ -447,34 +327,6 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 ```
 
-## API Response Examples
-
-### Example 1: Strong Match
-
-```
-Query: "difference between lists and tuples python"
-Response:
-{
-  "success": true,
-  "question": "Explain the difference between lists and tuples in Python.",
-  "answer": "Lists are mutable (can be modified)...",
-  "confidence": 0.92,
-  "faq_id": 14
-}
-```
-
-### Example 2: Weak Match
-
-```
-Query: "best restaurants in Paris"
-Response:
-{
-  "success": false,
-  "message": "I'm not confident about the answer. Please rephrase your question.",
-  "confidence": 0.08
-}
-```
-
 ## Sample FAQ Topics
 
 The chatbot includes 25 sample FAQs covering:
@@ -540,6 +392,10 @@ For detailed information:
 - Review the FAQ dataset format in `faq_dataset.json`
 
 ---
+```
+Author - Priyanshu Kumar
+github - @Priyanshu7439
+Linkdin - https://www.linkedin.com/in/priyanshu-kumar-8a51382b4/?skipRedirect=true
 
 **Version:** 1.0  
 **Last Updated:** April 2026  
